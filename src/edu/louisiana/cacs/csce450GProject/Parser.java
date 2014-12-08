@@ -102,15 +102,13 @@ public static void parse () throws IOException {
         int inp = 0;
         do{
            String top = (String)queueA.peek();
-	       switch(top){
-	           case "id": inp = 0;break;
-	           case "+": inp = 1;break;
-	           case "*": inp = 2;break;
-	           case "(": inp = 3;break;
-	           case ")": inp = 4;break; 
-	           case "$": inp = 5;break;
-	           default: break;
-	           }
+	       if(top.equals("id")){ inp = 0;}
+	       else if(top.equals("+")){ inp = 1;}
+	       else if(top.equals("*")){ inp = 2;}
+	       else if(top.equals("(")){ inp = 3;}
+	       else if(top.equals(")")){ inp = 4;}
+	       else if(top.equals("$")){ inp = 5;}
+	       else { System.out.println("unknown symbol in input");}
 		       String temp = st.peek();
 		       int state = getDigit(temp);
 		       action_val = Action_look(state, inp);		       
@@ -125,9 +123,9 @@ public static String Action_look (int state,int inp){
     String ret_val ="";
     //String s = "", stq = "";
     String temp;
-    
-        switch (Action[state][inp] ){
-            case "S4":String s = "", stq = "";
+    String tt = Action[state][inp];
+        if (Action[state][inp].equals("S4") ){
+            String s = "", stq = "";
             	      for (String i : st) {
         		        stq = stq + i; 
         	           }
@@ -141,80 +139,85 @@ public static String Action_look (int state,int inp){
           		      System.out.println();
                       st.push(queueA.remove() + "4");
                       ret_val = ""+"S4";
-                      break;
+        }
             		  
-            case "S5":s = ""; stq = ""; 
+        else if (Action[state][inp].equals("S5") ){
+        			  String s = ""; String stq = ""; 
 	            	  for (String i : st) {
 	        		    stq = stq + i; 
 	        	       }
 	            	  for ( String i : queueA) {
 	        		    s = s + i; 
 	        	       }
-                	  format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s ",stq,s, "["+state+","+queueA.element()+"]","S5","","","","","","push "+queueA.element()+"5" );
+                	  String format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s ",stq,s, "["+state+","+queueA.element()+"]","S5","","","","","","push "+queueA.element()+"5" );
             		  System.out.print(format);
-            		  t = queueA.peek();
+            		  String t = queueA.peek();
             		  tree_stack(t);
             		  System.out.println();
             		  st.push(queueA.remove() + "5");
                       ret_val = ""+"S5";
-                      break;
+        }
                       
-            case "S6":s = ""; stq = "";
+         else if (Action[state][inp].equals("S6") ){
+            			  String s = ""; String stq = ""; 
 		              for (String i : st) {
 		        		 stq = stq + i; 
 		        	     }
 		              for ( String i : queueA) {
 		        		s = s + i; 
 		        	    }
-                      format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s ",stq,s, "["+state+","+queueA.element()+"]","S6","","","","","","push "+queueA.element()+"6"  );
+                      String format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s ",stq,s, "["+state+","+queueA.element()+"]","S6","","","","","","push "+queueA.element()+"6"  );
                       System.out.print(format);
-                      t = queueA.peek();
+                      String t = queueA.peek();
                       tree_stack(t);
             		  System.out.println();
                       st.push(queueA.remove() + "6");
-                      ret_val = ""+"S6";                      
-                      break;
+                      ret_val = ""+"S6"; }                     
+                     
                       
-            case "S7":s = ""; stq = "";
+           else if (Action[state][inp].equals("S7") ){
+            			  String s = ""; String stq = ""; 
 			          for (String i : st) {
 			            stq = stq + i; 
 			        	}
 			          for ( String i : queueA) {
 			             s = s + i; 
 			           }
-                      format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s ",stq,s, "["+state+","+queueA.element()+"]","S7","","","","","","push "+queueA.element()+"7");
+                      String format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s ",stq,s, "["+state+","+queueA.element()+"]","S7","","","","","","push "+queueA.element()+"7");
                       System.out.print(format);
-                      t = queueA.peek();
+                     String  t = queueA.peek();
                       tree_stack(t);
                       System.out.println();
                       st.push(queueA.remove() + "7");
                       ret_val = ""+"S7";
-                      break;
+           }
                       
-            case "S11":s = ""; stq = "";
+           else if (Action[state][inp].equals("S11") ){
+ 			  String s = ""; String stq = ""; 
 			          for (String i : st) {
 			          stq = stq + i; 
 			        	}
 			           for ( String i : queueA) {
 			             s = s + i; 
 			              }
-            		  format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s",stq,s, "["+state+","+queueA.element()+"]","S11","","","","","","push "+queueA.element()+"11"  );
+            		  String format = String.format("%-30s %-25s %-10s %-10s %-10s %-10s %-20s %-10s %-10s %-20s",stq,s, "["+state+","+queueA.element()+"]","S11","","","","","","push "+queueA.element()+"11"  );
                       System.out.print(format);
-                      t = queueA.peek();
+                      String t = queueA.peek();
                       tree_stack(t);
             		  System.out.println();
                       st.push(queueA.remove() + "11");
                       ret_val = ""+"S11";
-                      break;
+           }
                 
-            case "R1":s = ""; stq = "";
+           else if (Action[state][inp].equals("R1") ){
+ 			  String s = ""; String stq = ""; 
 			          for (String i : st) {
 			        	stq = stq + i; 
 			        	}
 			          for ( String i : queueA) {
 			        	s = s + i; 
 			        	}
-			          format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R1");
+			          String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R1");
 			          System.out.print(format);
                       rules.push("E"); rules.push("E");rules.push("+");rules.push("T");
                       LHS = ""+rules.elementAt(0);
@@ -236,21 +239,22 @@ public static String Action_look (int state,int inp){
                       st.push("E"+Integer.toString(goto_val));
                       rules.clear();
                       ret_val = ""+"R1";
-                      break;
+           }
                    
-            case "R2":s = ""; stq = "";
+           else if (Action[state][inp].equals("R2") ){
+ 			  String s = ""; String stq = ""; 
 		              for (String i : st) {
 		        	    stq = stq + i; 
 		        	    }
 		              for ( String i : queueA) {
 		        	    s = s + i; 
 		        	    }
-                      format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R2");
+                      String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R2");
                       System.out.print(format);
                       rules.push("E");rules.push("T");
                       LHS = ""+rules.elementAt(0);
                       RHS = ""+rules.elementAt(1);
-                      len = 1;
+                      int len = 1;
                       st.pop();
                       //System.out.print(st+"\t");
                       temp = st.peek();
@@ -268,21 +272,22 @@ public static String Action_look (int state,int inp){
                       st.push("E"+Integer.toString(goto_val));
                       rules.clear();
                       ret_val = ""+"R2";
-                      break;
+           }
                       
-            case "R3":s = ""; stq = "";
+           else if (Action[state][inp].equals("R3") ){
+ 			  String s = ""; String stq = ""; 
 	                  for (String i : st) {
 	        	        stq = stq + i; 
 	        	        }
 	                  for ( String i : queueA) {
 	        	        s = s + i; 
 	        	        }
-            		  format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R3");
+            		  String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R3");
                       System.out.print(format);
                       rules.push("T");rules.push("T");rules.push("*");rules.push("F");
                       LHS = ""+rules.elementAt(0);
                       RHS = ""+rules.elementAt(1)+rules.elementAt(2)+rules.elementAt(3);
-                      len = 3;
+                      int len = 3;
                       st.pop();st.pop();st.pop();
                       temp = st.peek();
                       state = getDigit(temp);
@@ -299,21 +304,22 @@ public static String Action_look (int state,int inp){
                       st.push("T"+Integer.toString(goto_val));
                       rules.clear();
                       ret_val = ""+"R3";
-                      break;
+           }
                       
-            case "R4":s = ""; stq = "";
+           else if (Action[state][inp].equals("R4") ){
+ 			  String s = ""; String stq = ""; 
 		              for (String i : st) {
 		      	      stq = stq + i; 
 		      	      }
 		              for ( String i : queueA) {
 		      	      s = s + i; 
 		      	      }
-                      format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R4");
+                      String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R4");
                       System.out.print(format);
                       rules.push("T");rules.push("F");
                       LHS = ""+rules.elementAt(0);
                       RHS = ""+rules.elementAt(1);
-                      len = 1;
+                      int len = 1;
                       st.pop();
                       temp = st.peek();
                       state = getDigit(temp);
@@ -330,21 +336,22 @@ public static String Action_look (int state,int inp){
                       st.push("T"+Integer.toString(goto_val));
                       rules.clear();
                       ret_val = ""+"R4";
-                      break;
+           }
                       
-            case "R5":s = ""; stq = "";   
+           else if (Action[state][inp].equals("R5") ){
+ 			  String s = ""; String stq = "";  
             	      for (String i : st) {
 		      	      stq = stq + i; 
 		      	      }
 		              for ( String i : queueA) {
 		      	      s = s + i; 
 		      	      }
-                      format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R5");
+                      String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R5");
                       System.out.print(format);
                       rules.push("F");rules.push("(");rules.push("E");rules.push(")");
                       LHS = ""+rules.elementAt(0);
                       RHS = ""+rules.elementAt(1)+rules.elementAt(2)+rules.elementAt(3);
-                      len = 3;
+                      int len = 3;
                       st.pop();st.pop();st.pop();
                       temp = st.peek();
                       state = getDigit(temp);                      inp = 8;
@@ -360,21 +367,22 @@ public static String Action_look (int state,int inp){
                       st.push("F"+Integer.toString(goto_val));
                       rules.clear();
                       ret_val = ""+"R5";
-                      break;
+           }
                       
-            case "R6":s = ""; stq = ""; 
+              else if (Action[state][inp].equals("R6") ){
+            			  String s = ""; String stq = ""; 
             	      for (String i : st) {
 		      	      stq = stq + i; 
 		      	      }
 		              for ( String i : queueA) {
 		      	      s = s + i; 
 		      	      }
-                      format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R6");
+                      String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","R6");
                       System.out.print(format);
                       rules.push("F");rules.push("id");
                       LHS = ""+rules.elementAt(0);
                       RHS = ""+rules.elementAt(1);
-                      len = 1;
+                      int len = 1;
                       st.pop();
                       temp = st.peek();
                       state = getDigit(temp);
@@ -391,37 +399,43 @@ public static String Action_look (int state,int inp){
                       st.push("F"+Integer.toString(goto_val));
                       rules.clear();
                       ret_val = ""+"R6";
-                      break;
+              }
                       
-            case "accept":s = ""; stq = ""; 
+              else if (Action[state][inp].equals("accept") ){
+    			  String s = ""; String stq = "";  
             	      for (String i : st) {
 		      	      stq = stq + i; 
 		      	      }
 		              for ( String i : queueA) {
 		      	      s = s + i; 
 		      	      }
-                      format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","accept");
+                      String format = String.format("%-30s %-25s %-10s %-10s", stq,s,"["+state+","+queueA.element()+"]","accept");
                       System.out.print(format);
                       ret_val = ""+"accept";
-                      break;
+              }
                       
-                      default:  System.out.println("ungramatical language....."+"\t");
-                                break;
-                      }
+              //else{  System.out.println("ungramatical language....."+"\t");
+                                
+                //      }
           return ret_val;
          }	
 	
 
 public static int goto_look (int state,int inp){
-    switch (Action[state][inp] ){
-       case "1": return 1;
-       case "2": return 2;
+    if (Action[state][inp].equals("1") ){ return 1 ;}
+    else if (Action[state][inp].equals("2") ){ return 2 ;}
+    else if (Action[state][inp].equals("3") ){ return 3 ;}
+    else if (Action[state][inp].equals("8") ){ return 8 ;}
+    else if (Action[state][inp].equals("9") ){ return 9 ;}
+    else if (Action[state][inp].equals("10") ){ return 10 ;}
+    else { return 0;}
+       /*case "2": return 2;
        case "3": return 3;
        case "8": return 8;
        case "9": return 9;
        case "10": return 10;
     }
-        return 0;
+        return 0;*/
 }
 
     
